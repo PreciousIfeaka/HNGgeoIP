@@ -8,7 +8,6 @@ const app = express();
 app.use(express.json());
 
 app.use(express.urlencoded({ extended: false }));
-app.use(bodyParser.urlencoded({extended: true }));
 
 app.get("/", async (req, res) => {
   res.send("Use the complete query url");
