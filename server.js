@@ -6,7 +6,7 @@ const PORT = 8001;
 const app = express();
 
 app.get("/", async (req, res) => {
-  res.redirect("/api/hello")
+  res.send("Use the complete query url");
 });
 
 app.use("/api", helloRouter);
