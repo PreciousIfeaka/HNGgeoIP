@@ -28,14 +28,14 @@ helloRouter.get("/hello", async (req, res) => {
   }
 
   //geoip lookup
-  const geo = await axios.get(`https://ipinfo.io/${userIPV4}?token=${IP_TOKEN}`);
+  const geo = await axios.get(`https://api.ipbase.com/v2/info?apikey=${IP_TOKEN}&ip=${userIPV4}`);
   // console.log(geo.data.city);
 
   const options = {
     method: "GET",
     url: `http://api.weatherstack.com/current?access_key=${API_KEY}`,
     params: {
-      query: `${geo.data.city}`,
+      query: `${geo.data.data.location.city.name}`,
     }
   };
   //axios request on weather api
