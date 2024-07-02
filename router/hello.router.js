@@ -1,15 +1,17 @@
 const axios = require("axios");
 const express = require("express");
 const ipaddr = require("ipaddr.js");
-const geoIP2 = require("geoip-lite2");
+require("dotenv").config();
 
 const helloRouter = express();
-const apiKey = process.env.WEATHERSTACK_API_KEY;
+const API_KEY = process.env.WEATHERSTACK_API_KEY;
+const IP_TOKEN = process.env.IPINFO_TOKEN;
 
 // router for /hello route
 helloRouter.get("/hello", async (req, res) => {
   const visitorName = req.query.visitor_name;
   const userIPV6 = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+  // convert ipv6 to v4
   let userIPV4;
   if (ipaddr.parse(userIPV6).isIPv4MappedAddress()) {
     userIPV4 = await ipaddr.parse(userIPV6).toIPv4Address();
@@ -20,14 +22,14 @@ helloRouter.get("/hello", async (req, res) => {
   }
 
   //geoip lookup
-  const geo = geoIP2.lookup("102.88.68.96");
-  // console.log(geo.city);
+  const geo = await axios.get(`https://ipinfo.io/${userIPV4}?token=${IP_TOKEN}`);
+  // console.log(geo.data.city);
 
   const options = {
     method: "GET",
-    url: `http://api.weatherstack.com/current?access_key=${apiKey}`,
+    url: `http://api.weatherstack.com/current?access_key=${API_KEY}`,
     params: {
-      query: `${geo.city}`,
+      query: `${geo.data.city}`,
     }
   };
   //axios request on weather api

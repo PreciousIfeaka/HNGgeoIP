@@ -1,5 +1,6 @@
 require("dotenv").config();
 const express = require("express");
+const cors = require("cors");
 const helloRouter = require("./router/hello.router");
 const PORT = process.env.PORT || 8001;
 
@@ -8,6 +9,7 @@ const app = express();
 app.use(cors({
   origin: `http://localhost/PORT/`
 }));
+
 app.use(express.json());
 
 app.use(express.urlencoded({ extended: false }));
