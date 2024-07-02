@@ -50,7 +50,7 @@ helloRouter.get("/hello", async (req, res) => {
       location: `${geodata.location.name}`,
       greeting: `Hello, ${visitorName}!, the temperature is ${geodata.current.temperature} degrees Celcius in ${geodata.location.name}`
     }
-    res.json(userObj);
+    return res.json(userObj);
     } catch (error) {
       console.error(error);
     }
