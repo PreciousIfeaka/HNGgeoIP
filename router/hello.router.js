@@ -16,6 +16,8 @@ helloRouter.get("/hello", async (req, res) => {
   let addr = ipaddr.parse(userIPV6);
   if (addr.kind() === 'ipv6' && addr.isIPv4MappedAddress()) {
     userIPV4 = await addr.toIPv4Address().toString();
+  } else if (addr.kind() === 'ipv4') {
+    userIPV4 = userIPV6;
   } else if (userIPV6 === "::1") {
     userIPV4 = "127.0.0.1"
   } else {
