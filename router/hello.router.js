@@ -28,7 +28,7 @@ helloRouter.get("/hello", async (req, res) => {
     }
 
     //geoip lookup
-    const geo = await axios.get(`https://api.ipbase.com/v2/info?apikey=${IP_TOKEN}&ip=102.89.23.91`);
+    const geo = await axios.get(`https://api.ipbase.com/v2/info?apikey=${IP_TOKEN}&ip=${userIPV4}`);
 
     const options = {
       method: "GET",
