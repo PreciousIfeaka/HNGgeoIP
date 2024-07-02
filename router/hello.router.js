@@ -10,6 +10,7 @@ const IP_TOKEN = process.env.IPINFO_TOKEN;
 // router for /hello route
 helloRouter.get("/hello", async (req, res) => {
   const { visitor_name } = req.query;
+  
   const userIPV6 = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
   // convert ipv6 to v4
   let userIPV4;
