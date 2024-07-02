@@ -9,7 +9,7 @@ const IP_TOKEN = process.env.IPINFO_TOKEN;
 
 // router for /hello route
 helloRouter.get("/hello", async (req, res) => {
-  if (req.query && req.query != {}) {
+  if (Object.keys(req.query).length > 0) {
     const { visitor_name } = req.query;
     const visitorName = visitor_name.split('"').join('');
 
@@ -28,8 +28,7 @@ helloRouter.get("/hello", async (req, res) => {
     }
 
     //geoip lookup
-    const geo = await axios.get(`https://api.ipbase.com/v2/info?apikey=${IP_TOKEN}&ip=${userIPV4}`);
-    // console.log(geo.data.city);
+    const geo = await axios.get(`https://api.ipbase.com/v2/info?apikey=${IP_TOKEN}&ip=102.89.23.91`);
 
     const options = {
       method: "GET",
@@ -56,7 +55,7 @@ helloRouter.get("/hello", async (req, res) => {
     }
   } else {
     return res.json({
-      Error: "Sorry, you have to include a query parameter."
+      Error: "Sorry, you have to include a query parameter"
     })
   }
 });
