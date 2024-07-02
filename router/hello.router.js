@@ -13,8 +13,9 @@ helloRouter.get("/hello", async (req, res) => {
   const userIPV6 = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
   // convert ipv6 to v4
   let userIPV4;
-  if (ipaddr.parse(userIPV6).isIPv4MappedAddress()) {
-    userIPV4 = await ipaddr.parse(userIPV6).toIPv4Address();
+  let addr = ipaddr.parse(userIPV6);
+  if (addr.kind() === 'ipv6' && addr.isIPv4MappedAddress()) {
+    userIPV4 = await addr.toIPv4Address().toString();
   } else if (userIPV6 === "::1") {
     userIPV4 = "127.0.0.1"
   } else {
