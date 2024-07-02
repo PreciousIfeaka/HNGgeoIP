@@ -10,7 +10,9 @@ const IP_TOKEN = process.env.IPINFO_TOKEN;
 // router for /hello route
 helloRouter.get("/hello", async (req, res) => {
   const { visitor_name } = req.query;
-  
+
+  const visitorName = decodeURIComponent(visitor_name);
+
   const userIPV6 = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
   // convert ipv6 to v4
   let userIPV4;
@@ -46,7 +48,7 @@ helloRouter.get("/hello", async (req, res) => {
   const userObj = {
     client_ip: `${userIPV4}`,
     location: `${geodata.location.name}`,
-    greeting: `Hello, ${visitor_name}!, the temperature is ${geodata.current.temperature} degrees Celcius in ${geodata.location.name}`
+    greeting: `Hello, ${visitorName}!, the temperature is ${geodata.current.temperature} degrees Celcius in ${geodata.location.name}`
   }
   res.json(userObj);
   } catch (error) {
