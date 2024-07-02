@@ -9,7 +9,7 @@ const IP_TOKEN = process.env.IPINFO_TOKEN;
 
 // router for /hello route
 helloRouter.get("/hello", async (req, res) => {
-  if (req.query || req.query != {}) {
+  if (req.query && req.query != {}) {
     const { visitor_name } = req.query;
     const visitorName = visitor_name.split('"').join('');
 
