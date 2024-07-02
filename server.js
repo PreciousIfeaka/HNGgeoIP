@@ -15,7 +15,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.get("/", async (req, res) => {
-  res.send("Use the complete query url");
+  res.json({
+    Error: "Enter the correct query url: Query param",
+  });
 });
 
 app.use("/api", helloRouter);
